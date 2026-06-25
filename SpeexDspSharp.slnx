@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/libs/SpeexDspSharp/SpeexDspSharp.csproj" />
+  <Project Path="src/tests/SpeexDspSharp.Tests/SpeexDspSharp.Tests.csproj" />
+</Solution>

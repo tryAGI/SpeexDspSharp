@@ -1,0 +1,95 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyTitle>SpeexDspSharp</AssemblyTitle>
+    <AssemblyDescription>C# bindings for SpeexDSP (echo cancellation, preprocessor) with precompiled native libraries</AssemblyDescription>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <PackageId>tryAGI.SpeexDspSharp</PackageId>
+    <PackageDescription>C# bindings for SpeexDSP echo cancellation and preprocessing with precompiled native libraries</PackageDescription>
+    <PackageAuthors>tryAGI</PackageAuthors>
+    <PackageTags>speex;speexdsp;audio;echo-cancellation;aec;noise-suppression</PackageTags>
+    <PackageProjectUrl>https://github.com/tryAGI/SpeexDspSharp</PackageProjectUrl>
+    <PackageLicenseExpression>MIT AND BSD-3-Clause</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/tryAGI/SpeexDspSharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../../README.md">
+      <Pack>true</Pack>
+      <PackagePath>README.md</PackagePath>
+    </None>
+    <None Include="../../../THIRD-PARTY-NOTICES.md">
+      <Pack>true</Pack>
+      <PackagePath>THIRD-PARTY-NOTICES.md</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <!-- Include native libraries in NuGet package. -->
+  <ItemGroup>
+    <Content Include="../../../natives/linux/libspeexdsp.so" Condition="Exists('../../../natives/linux/libspeexdsp.so')">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x64/native/libspeexdsp.so</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="../../../natives/linux/libspeexdsp-arm64.so" Condition="Exists('../../../natives/linux/libspeexdsp-arm64.so')">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-arm64/native/libspeexdsp.so</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="../../../natives/macos/libspeexdsp.dylib" Condition="Exists('../../../natives/macos/libspeexdsp.dylib')">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-arm64/native/libspeexdsp.dylib</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="../../../natives/macos/libspeexdsp.dylib" Condition="Exists('../../../natives/macos/libspeexdsp.dylib')">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/osx-x64/native/libspeexdsp.dylib</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="../../../natives/windows/speexdsp.dll" Condition="Exists('../../../natives/windows/speexdsp.dll')">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native/speexdsp.dll</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- Copy native libraries into publish/output so RID-based probing works without NuGet packing. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <None Include="../../../natives/linux/libspeexdsp.so" Condition="Exists('../../../natives/linux/libspeexdsp.so')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>runtimes/linux-x64/native/libspeexdsp.so</Link>
+    </None>
+    <None Include="../../../natives/linux/libspeexdsp-arm64.so" Condition="Exists('../../../natives/linux/libspeexdsp-arm64.so')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>runtimes/linux-arm64/native/libspeexdsp.so</Link>
+    </None>
+    <None Include="../../../natives/macos/libspeexdsp.dylib" Condition="Exists('../../../natives/macos/libspeexdsp.dylib')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>runtimes/osx-arm64/native/libspeexdsp.dylib</Link>
+    </None>
+    <None Include="../../../natives/macos/libspeexdsp.dylib" Condition="Exists('../../../natives/macos/libspeexdsp.dylib')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>runtimes/osx-x64/native/libspeexdsp.dylib</Link>
+    </None>
+    <None Include="../../../natives/windows/speexdsp.dll" Condition="Exists('../../../natives/windows/speexdsp.dll')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Link>runtimes/win-x64/native/speexdsp.dll</Link>
+    </None>
+  </ItemGroup>
+
+</Project>
