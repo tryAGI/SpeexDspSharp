@@ -157,11 +157,16 @@
     },
     {
       "path": "natives/refresh.sh",
-      "sha256": "fb9de03da61fd503bd1421996298074eab534ae9046cb7f2b0698771a3db4ed9"
+      "sha256": "0d052e140c9df8475b9e67b953a10a03be713cdd413b66459e625d4fb778a4f5"
     },
     {
       "path": "src/libs/SpeexDspSharp/SpeexDspSharp.csproj",
-      "sha256": "e1c830266e5760d497ebc2e49c7b125d206549fbf1fa1deca36ad975d5001c3e"
+      "sha256": "3004b5002ad1f33f7da0b030d4b6c3ad2f435670e3975f41782eeabc5662d142"
+    },
+    {
+      "path": "scripts/native-build-attestation.py",
+      "sha256": "54ee2d655c95483a44ee6e4587d211afb3c1f69cbd53f1993bf130446a9c0dd0"
     }
-  ]
+  ],
+  "input_snapshot_note": "Build/refresh instrumentation inputs updated on 2026-10-03. Historical binary hashes and unknown build attestations are unchanged; these scripts are not asserted to be their original build inputs."
 }

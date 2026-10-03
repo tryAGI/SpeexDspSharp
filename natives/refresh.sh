@@ -14,12 +14,15 @@ set -euo pipefail
 # Pinned upstream version (Debian package revision). Bump and re-run to
 # refresh. SpeexDSP itself is at 1.2.1 — no patches we want to land.
 DEB_VERSION="1.2.1-1"
-DEB_MIRROR="http://ftp.debian.org/debian/pool/main/s/speexdsp"
+DEB_MIRROR="https://deb.debian.org/debian/pool/main/s/speexdsp"
 
 script_dir="$(cd "$(dirname "$0")" && pwd)"
 cd "$script_dir"
 
 mkdir -p linux macos
+ATTESTATION_START="$(mktemp)"
+trap 'rm -f "$ATTESTATION_START"' EXIT
+ATTESTER="$script_dir/../scripts/native-build-attestation.py"
 
 # --- Linux (Debian prebuilts) -------------------------------------------------
 
@@ -44,6 +47,14 @@ download_linux() {
 
     cp "$tmp/usr/lib/${libdir}/libspeexdsp.so.1.5.2" "linux/${outfile}"
     file "linux/${outfile}"
+    local rid="linux-arm64"
+    [[ "$arch" == "amd64" ]] && rid="linux-x64"
+    python3 "$ATTESTER" --root "$script_dir/.." --rid "$rid" --kind import \
+      --started "$ATTESTATION_START" --source "$tmp/pkg.deb" \
+      --source "$script_dir/refresh.sh" --tool curl --tool tar \
+      --parameter "package=libspeexdsp1_${DEB_VERSION}_${arch}" \
+      --parameter "url=${DEB_MIRROR}/libspeexdsp1_${DEB_VERSION}_${arch}.deb" \
+      --command "natives/refresh.sh: download_linux $arch"
 }
 
 download_linux arm64 libspeexdsp-arm64.so aarch64-linux-gnu
@@ -72,6 +83,12 @@ download_windows() {
     cp "$tmp/clang64/bin/libspeexdsp-1.dll" windows/speexdsp.dll
     chmod u+w windows/speexdsp.dll
     file windows/speexdsp.dll
+    python3 "$ATTESTER" --root "$script_dir/.." --rid win-x64 --kind import \
+      --started "$ATTESTATION_START" --source "$tmp/pkg.tar.zst" \
+      --source "$script_dir/refresh.sh" --tool curl --tool tar \
+      --parameter "package=mingw-w64-clang-x86_64-speexdsp-${DEB_VERSION}" \
+      --parameter "url=https://mirror.msys2.org/mingw/clang64/" \
+      --command "natives/refresh.sh: download_windows"
 }
 
 mkdir -p windows
@@ -93,6 +110,13 @@ if command -v brew >/dev/null 2>&1; then
         chmod u+w macos/libspeexdsp.dylib
         echo "[refresh] macos — copied $src"
         file macos/libspeexdsp.dylib
+        formula="$(brew --prefix speexdsp)/.brew/speexdsp.rb"
+        receipt="$(brew --prefix speexdsp)/INSTALL_RECEIPT.json"
+        python3 "$ATTESTER" --root "$script_dir/.." --rid osx-arm64 --kind import \
+          --started "$ATTESTATION_START" --source "$formula" --source "$src" \
+          --configuration "$receipt" --source "$script_dir/refresh.sh" --tool brew \
+          --parameter "package=speexdsp" --parameter "origin=Homebrew" \
+          --command "natives/refresh.sh: Homebrew copy"
     else
         echo "[refresh] WARNING: expected dylib not found at $src"
     fi
