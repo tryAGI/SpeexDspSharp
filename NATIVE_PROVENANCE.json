@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-03",
+  "baseline_repository_commit": "559c8ad998df959370deeec57fc0e3d131852af3",
+  "scope": "Recorded binary/source baseline, not a reproducible-build or security attestation.",
+  "components": [
+    {
+      "id": "speexdsp",
+      "version": "1.2.1",
+      "source_archive": {
+        "url": "https://downloads.xiph.org/releases/speex/speexdsp-1.2.1.tar.gz",
+        "sha256": "8c777343e4a6399569c72abc38a95b24db56882c83dbdb6c6424a5f4aeb54d3d",
+        "hash_basis": "installed Homebrew formula; archive not downloaded in this review"
+      },
+      "linux_packages": {
+        "amd64": {
+          "url": "https://deb.debian.org/debian/pool/main/s/speexdsp/libspeexdsp1_1.2.1-1_amd64.deb",
+          "sha256": "a418ba872a3c006502d5e70d855262507ee81b94227efef52512b5973f067e9d",
+          "size": 40920
+        },
+        "arm64": {
+          "url": "https://deb.debian.org/debian/pool/main/s/speexdsp/libspeexdsp1_1.2.1-1_arm64.deb",
+          "sha256": "9ca374b97374a3f482f9a58b76e3d97800fb58e6f759f4e0cc74723a01b01963",
+          "size": 35776
+        }
+      },
+      "package_comparison": {
+        "amd64": {
+          "payload_path": "./usr/lib/x86_64-linux-gnu/libspeexdsp.so.1.5.2",
+          "payload_sha256": "ba523e77a3ee7b8771f4cff3c222acad68592f210a9350351bd138f6a593336c",
+          "matches_bundled_binary": true
+        },
+        "arm64": {
+          "payload_path": "./usr/lib/aarch64-linux-gnu/libspeexdsp.so.1.5.2",
+          "payload_sha256": "fe869b51462c326d870377f1da478df198de4fe7207127b608e998dc8f9cdcfb",
+          "matches_bundled_binary": true
+        }
+      },
+      "macos_install_comparison": {
+        "matches_installed_homebrew_library": true,
+        "formula_sha256": "55d51d9dde0a00db050b1c718b4faf8373a14459716fd5459f0f3993662af85b",
+        "receipt": {
+          "homebrew_version": "4.6.10-22-g8ef7a9d",
+          "used_options": [],
+          "unused_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "loaded_from_api": true,
+          "loaded_from_internal_api": false,
+          "installed_on_request": true,
+          "changed_files": [
+            "lib/pkgconfig/speexdsp.pc"
+          ],
+          "time": 1779162248,
+          "source_modified_time": 1655905389,
+          "compiler": "clang",
+          "aliases": [],
+          "runtime_dependencies": [],
+          "source": {
+            "spec": "stable",
+            "versions": {
+              "stable": "1.2.1",
+              "head": null,
+              "version_scheme": 0,
+              "compatibility_version": null
+            },
+            "tap_git_head": null,
+            "tap": "homebrew/core"
+          },
+          "arch": "arm64",
+          "built_on": {
+            "os": "Macintosh",
+            "os_version": "macOS 26",
+            "cpu_family": "dunno",
+            "xcode": "26.0",
+            "clt": "26.0.0.0.1.1756965055",
+            "preferred_perl": "5.34"
+          }
+        }
+      },
+      "windows_package": {
+        "url": "https://mirror.msys2.org/mingw/clang64/mingw-w64-clang-x86_64-speexdsp-1.2.1-1-any.pkg.tar.zst",
+        "version": "1.2.1-1",
+        "sha256": null,
+        "verification_gap": "Both MSYS2 mirror and primary repository connections were refused during review."
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "natives/linux/libspeexdsp-arm64.so",
+      "sha256": "fe869b51462c326d870377f1da478df198de4fe7207127b608e998dc8f9cdcfb",
+      "size": 67432,
+      "package_paths": [
+        "runtimes/linux-arm64/native/libspeexdsp.so"
+      ],
+      "components": [
+        "speexdsp"
+      ],
+      "source_evidence": "binary-matches-pinned-debian-package",
+      "build_attestation": "unknown",
+      "build_attestation_gap": "No original per-artifact build attestation linking all compiler/build inputs to this binary was retained."
+    },
+    {
+      "path": "natives/linux/libspeexdsp.so",
+      "sha256": "ba523e77a3ee7b8771f4cff3c222acad68592f210a9350351bd138f6a593336c",
+      "size": 79784,
+      "package_paths": [
+        "runtimes/linux-x64/native/libspeexdsp.so"
+      ],
+      "components": [
+        "speexdsp"
+      ],
+      "source_evidence": "binary-matches-pinned-debian-package",
+      "build_attestation": "unknown",
+      "build_attestation_gap": "No original per-artifact build attestation linking all compiler/build inputs to this binary was retained."
+    },
+    {
+      "path": "natives/macos/libspeexdsp.dylib",
+      "sha256": "788c28de42cfa50eb1ca41d0c094c7428def8e85604c1302423de78d37619e10",
+      "size": 106784,
+      "package_paths": [
+        "runtimes/osx-arm64/native/libspeexdsp.dylib",
+        "runtimes/osx-x64/native/libspeexdsp.dylib"
+      ],
+      "components": [
+        "speexdsp"
+      ],
+      "source_evidence": "binary-matches-local-homebrew-install",
+      "build_attestation": "unknown",
+      "build_attestation_gap": "No original per-artifact build attestation linking all compiler/build inputs to this binary was retained."
+    },
+    {
+      "path": "natives/windows/speexdsp.dll",
+      "sha256": "6b1435f16373c3915ecdd03fdaee473cb66d3d7c68a39b34d3072ca8190c9f61",
+      "size": 165888,
+      "package_paths": [
+        "runtimes/win-x64/native/speexdsp.dll"
+      ],
+      "components": [
+        "speexdsp"
+      ],
+      "source_evidence": "declared-source-only",
+      "build_attestation": "unknown",
+      "build_attestation_gap": "No original per-artifact build attestation linking all compiler/build inputs to this binary was retained."
+    }
+  ],
+  "source_trees": [],
+  "inputs": [
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "sha256": "0263fa358c1da63b7c5b2e4bf927b6e03652a038bc8ca099b60caf2e1c0681a5"
+    },
+    {
+      "path": "natives/README.md",
+      "sha256": "58aedc74d1589ad1d1a647f7f27e9f9384862acceb385ea6e0a3ee57c9bd450f"
+    },
+    {
+      "path": "natives/refresh.sh",
+      "sha256": "fb9de03da61fd503bd1421996298074eab534ae9046cb7f2b0698771a3db4ed9"
+    },
+    {
+      "path": "src/libs/SpeexDspSharp/SpeexDspSharp.csproj",
+      "sha256": "e1c830266e5760d497ebc2e49c7b125d206549fbf1fa1deca36ad975d5001c3e"
+    }
+  ]
+}
